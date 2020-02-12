@@ -1,0 +1,3 @@
+---
+extends:
+  - '@rafw87/react-app-ts-prettier'

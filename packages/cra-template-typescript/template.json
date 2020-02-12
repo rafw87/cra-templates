@@ -1,5 +1,16 @@
 {
   "package": {
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "test:all": "cross-env CI=1 react-scripts test",
+      "lint": "eslint --ext .ts --ext .tsx .",
+      "lint:quick": "lint-staged",
+      "lint:print": "eslint --print-config src/index.tsx",
+      "pretty:all": "prettier --write \"**/*.{js,jsx,ts,tsx,html,css,json,yml,yaml}\"",
+      "pretty:quick": "pretty-quick --staged --bail --no-restage"
+    },
     "dependencies": {
       "@testing-library/react": "^9.3.2",
       "@testing-library/jest-dom": "^4.2.4",
@@ -9,6 +20,30 @@
       "@types/react-dom": "^16.9.0",
       "@types/jest": "^24.0.0",
       "typescript": "~3.7.2"
+    },
+    "devDependencies": {
+      "@rafw87/eslint-config-react-app-ts-prettier": "^0.1.0",
+      "cross-env": "^7.0.0",
+      "eslint": "^6.8.0",
+      "husky": "^4.2.2",
+      "lint-staged": "^10.0.7",
+      "prettier": "^1.19.1",
+      "pretty-quick": "^2.0.1"
+    },
+    "eslintConfig": {
+      "extends": "@rafw87/react-app-ts-prettier"
+    },
+    "engines": {
+      "node": ">=10"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "yarn pretty:quick && yarn lint:quick",
+        "pre-push": "yarn lint && yarn test:all"
+      }
+    },
+    "lint-staged": {
+      "src/**/*.{ts,tsx}": "eslint"
     }
   }
 }
